@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TrainRepository extends CrudRepository<Train, Long> {
     Optional<Train> findTrainById(Long id);
-    Optional<Train> findTrainByUuid(String uuid);
+    Optional<Train> findTrainBySerialNumber(String serialNumber);
     Page<Train> findAll(Pageable pageable);
-    void deleteByUuid(String uuid);
 }
