@@ -1,17 +1,7 @@
 package com.train.train.entity;
 
-import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDate;
-import java.util.Date;
-
-@Entity
-@Table(name = "trains")
-public class Train {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class  Train {
     private String uuid;
     private String serialNumber;
     private String status;
@@ -25,14 +15,6 @@ public class Train {
     private Integer fromPiterToMoscow;
 
     public Train() {
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUuid() {
