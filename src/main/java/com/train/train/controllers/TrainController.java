@@ -2,6 +2,7 @@ package com.train.train.controllers;
 
 import com.train.train.forms.TrainCreateForm;
 import com.train.train.services.train.TrainService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Slf4j
 public class TrainController {
     private final TrainService trainService;
 
@@ -28,11 +30,11 @@ public class TrainController {
     public ModelAndView createTrains(@ModelAttribute TrainCreateForm createForm) {
         return new ModelAndView("simulation-form")
                 .addObject(
-                        "allTrains", trainService.convertToTrainModel(trainService.createNewTrains(
+                        "allTrains", trainService.simulate(
                                 createForm.getMaxTrains(),
                                 createForm.getStartDate(),
                                 createForm.getFromMoscowToPiter(),
                                 createForm.getFromPiterToMoscow()
-                )));
+                        ));
     }
 }

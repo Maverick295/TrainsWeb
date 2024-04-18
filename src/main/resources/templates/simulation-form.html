@@ -12,24 +12,28 @@
   <form method="post" action="/simulation" th:object="${trainCreateForm}" class="mb-4">
     <div class="mb-3">
       <label for="maxTrains" class="form-label">Максимальное количество поездов</label>
-      <input type="text" class="form-control" id="maxTrains" th:field="*{maxTrains}" placeholder="Enter max number of trains">
+      <input type="text" class="form-control" id="maxTrains" th:field="*{maxTrains}" placeholder="Enter max number of trains"/>
     </div>
 
     <div class="mb-3">
       <label for="fromMoscowToPiter" class="form-label">Пассажиры (Москва-Питер)</label>
-      <input type="text" class="form-control" id="fromMoscowToPiter" th:field="*{fromMoscowToPiter}" placeholder="Passengers from Moscow to Piter">
+      <input type="text" class="form-control" id="fromMoscowToPiter" th:field="*{fromMoscowToPiter}" placeholder="Passengers from Moscow to Piter"/>
     </div>
 
     <div class="mb-3">
       <label for="fromPiterToMoscow" class="form-label">Пассажиры (Питер-Москва)</label>
-      <input type="text" class="form-control" id="fromPiterToMoscow" th:field="*{fromPiterToMoscow}" placeholder="Passengers from Piter to Moscow">
+      <input type="text" class="form-control" id="fromPiterToMoscow" th:field="*{fromPiterToMoscow}" placeholder="Passengers from Piter to Moscow"/>
     </div>
 
     <div class="mb-3">
-      <label for="startDate" class="form-label">Календарь</label>
-      <input type="date" class="form-control" id="startDate" name="startDate">
+      <label for="startDate" class="form-label">Дата начала</label>
+      <input type="datetime-local" class="form-control" id="startDate" name="startDate"/>
     </div>
 
+    <div class="mb-3">
+      <label for="finishDate" class="form-label">Дата конца</label>
+      <input type="datetime-local" class="form-control" id="finishDate" name="startDate"/>
+    </div>
     <button type="submit" class="btn btn-primary">Запустить моделирование</button>
   </form>
 

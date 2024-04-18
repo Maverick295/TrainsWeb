@@ -1,6 +1,7 @@
 package com.train.train.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class TrainModel {
@@ -12,7 +13,7 @@ public class TrainModel {
     private String cycle;
     private Integer seat;
     private Integer interval;
-    private LocalDate startDate;
+    private LocalDateTime startDate;
     private Integer fromMoscowToPiter;
     private Integer fromPiterToMoscow;
 
@@ -88,11 +89,11 @@ public class TrainModel {
         return this;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public TrainModel setStartDate(LocalDate startDate) {
+    public TrainModel setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
         return this;
     }

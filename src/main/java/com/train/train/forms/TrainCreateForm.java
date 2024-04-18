@@ -1,12 +1,12 @@
 package com.train.train.forms;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TrainCreateForm {
     private Integer maxTrains;
     private Integer fromMoscowToPiter;
     private Integer fromPiterToMoscow;
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     public Integer getMaxTrains() {
         return maxTrains;
@@ -35,11 +35,11 @@ public class TrainCreateForm {
         return this;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public TrainCreateForm setStartDate(LocalDate startDate) {
+    public TrainCreateForm setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
