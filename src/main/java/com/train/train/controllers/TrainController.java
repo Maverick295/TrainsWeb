@@ -26,6 +26,8 @@ public class TrainController {
 
     @PostMapping("/simulation")
     public ModelAndView createTrains(@ModelAttribute TrainCreateForm createForm) {
+        trainService.clearListsForRandomInterval();
+
         return new ModelAndView("simulation-form")
                 .addObject(
                         "allTrains", trainService.createNewTrains(

@@ -6,15 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
 public class TrainServiceImpl implements TrainService {
-    private final List<TrainModel> trainModelList = new ArrayList<>();
+    private List<TrainModel> trainModelList = new ArrayList<>();
+    private List<Integer> distributePeople = new ArrayList<>();
+    private List<Integer> remaining = new ArrayList<>();
     private static final String SERIAL_PREFIX = "ВП";
     private static final String DEFAULT_STATUS = String.valueOf(Status.DEFAULT);
     private static final Integer DEFAULT_DISTANCE = 0;
@@ -31,7 +30,7 @@ public class TrainServiceImpl implements TrainService {
 
         for (int i = 0; i < maxTrains; i++) {
             TrainModel trainModel = new TrainModel()
-                    .setUuid(UUID.randomUUID().toString())
+                    .setUuid(generateUuid())
                     .setSerialNumber(generateSerialNumber())
                     .setStatus(DEFAULT_STATUS)
                     .setDistance(DEFAULT_DISTANCE)
@@ -49,6 +48,37 @@ public class TrainServiceImpl implements TrainService {
         return trainModelList;
     }
 
+    @Override
+    public List<Integer> distributePeopleRandomly(Integer peopleCount, int interval) {
+        Random random = new Random();
+
+        if (interval == 1) {
+            distributePeople.add(peopleCount);
+            return distributePeople;
+        }
+
+        int num = random.nextInt(peopleCount) + 1;
+        distributePeople.add(num);
+
+        remaining = distributePeopleRandomly(interval - 1, peopleCount - num);
+
+        distributePeople.addAll(remaining);
+
+        return distributePeople;
+    }
+
+    @Override
+    public void clearListsForRandomInterval() {
+        remaining.clear();
+        distributePeople.clear();
+    }
+
+    @Override
+    public String generateUuid() {
+        return UUID.randomUUID().toString();
+    }
+
+    @Override
     public String generateSerialNumber() {
         Random random = new Random();
 

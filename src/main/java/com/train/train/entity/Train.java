@@ -1,6 +1,7 @@
 package com.train.train.entity;
 
 import java.time.LocalDate;
+
 public class  Train {
     private String uuid;
     private String serialNumber;

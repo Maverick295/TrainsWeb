@@ -28,7 +28,7 @@
 <div th:if="${allTrains != null and !allTrains.isEmpty()}">
   <h2>Список созданных поездов:</h2>
   <ul>
-    <li th:each="train : ${allTrains}" th:text="${train.getSerialNumber()} + ' - ' + ${train.getStatus()}"></li>
+    <li th:each="train : ${allTrains}" th:text="${train.getSerialNumber()} + ' ' + ${train.getStatus()}"></li>
   </ul>
 </div>
 </body>
