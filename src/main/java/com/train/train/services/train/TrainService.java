@@ -1,17 +1,16 @@
 package com.train.train.services.train;
 
 import com.train.train.entity.Train;
-import com.train.train.forms.UpdateTrainInfoForm;
 import com.train.train.models.TrainModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
+
 public interface TrainService {
-    Train findTrainById(Long id);
-    Train findTrainByUuid(String uuid);
+    Train getTrainById(Long id);
+    Train getTrainBySerialNumber(String serialNumber);
     void saveTrain(Train train);
-    Train createNewTrain();
-    Train editTrain(Train train, UpdateTrainInfoForm form);
+    void createNewTrains(Integer maxTrains, LocalDate startDate, Integer fromMoscowToPiter, Integer fromPiterToMoscow);
     Page<TrainModel> findAllTrains(Pageable pageable);
-    void deleteTrainByUuid(String uuid);
 }

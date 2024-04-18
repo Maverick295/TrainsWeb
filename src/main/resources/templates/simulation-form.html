@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/simulation" th:object="${trainCreateForm}">
+  <label>Максимальное количество поездов
+    <input type="text" th:field="*{maxTrains}"><br>
+  </label>
+
+  <label>Пассажиры (Москва-Питер)
+    <input type="text" th:field="*{fromMoscowToPiter}"><br>
+  </label>
+
+  <label>Пассажиры (Питер-Москва)
+    <input type="text" th:field="*{fromPiterToMoscow}"><br>
+  </label>
+
+  <label>Календарь
+    <input type="date" name="startDate"><br>
+  </label>
+
+  <button type="submit">Запустить моделирование</button>
+</form>
+</body>
+</html>

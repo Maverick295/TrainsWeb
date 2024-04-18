@@ -11,8 +11,15 @@ public class ModelServiceImpl implements ModelService {
     public TrainModel getTrainModel(Train train) {
         return new TrainModel()
                 .setUuid(train.getUuid())
-                .setMileage(train.getMileage())
+                .setDistance(train.getDistance())
+                .setSeat(train.getSeat())
+                .setStatus(train.getStatus())
+                .setInterval(train.getInterval())
+                .setSerialNumber(train.getSerialNumber())
                 .setDaysInWork(train.getDaysInWork())
-                .setCycle(train.getCycle());
+                .setCycle(train.getCycle())
+                .setFromPiterToMoscow(train.getFromPiterToMoscow())
+                .setFromMoscowToPiter(train.getFromMoscowToPiter())
+                .setStartDate(train.getStartDate());
     }
 }
