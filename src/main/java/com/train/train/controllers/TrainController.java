@@ -26,15 +26,13 @@ public class TrainController {
 
     @PostMapping("/simulation")
     public ModelAndView createTrains(@ModelAttribute TrainCreateForm createForm) {
-        trainService.clearListsForRandomInterval();
-
         return new ModelAndView("simulation-form")
                 .addObject(
-                        "allTrains", trainService.createNewTrains(
+                        "allTrains", trainService.convertToTrainModel(trainService.createNewTrains(
                                 createForm.getMaxTrains(),
                                 createForm.getStartDate(),
                                 createForm.getFromMoscowToPiter(),
                                 createForm.getFromPiterToMoscow()
-                ));
+                )));
     }
 }
