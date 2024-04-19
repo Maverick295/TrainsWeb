@@ -22,12 +22,17 @@ public class TrainServiceImpl implements TrainService {
     private static final Integer DEFAULT_SEAT = 450;
     private static final Integer INTERVAL_SPLIT = 4;
     private static final Integer DEFAULT_INTERVAL_MIN = 0;
-    private Map<Integer, List<LocalDateTime>> timeMapStart = new HashMap<>();
-    private Map<Integer, List<LocalDateTime>> timeMapEnd = new HashMap<>();
+    private Map<Integer, List<LocalDateTime>> timeMapStart;
+    private Map<Integer, List<LocalDateTime>> timeMapEnd;
     private List<Train> trainsList;
 
     @Override
     public List<Train> exec(Integer maxTrains, LocalDateTime startDate, Integer fromMoscowToPiter, Integer fromPiterToMoscow) {
+        timeMapStart = new HashMap<>();
+        timeMapEnd = new HashMap<>();
+
+        createNewTrains(maxTrains, startDate, fromMoscowToPiter, fromPiterToMoscow);
+
         List<Integer> peopleFromMoscowToPiter = distributePeopleRandomly(fromMoscowToPiter, 4);
         List<Integer> peopleFromPiterToMoscow = distributePeopleRandomly(fromPiterToMoscow, 4);
         List<Integer> trainNums = findTrainNumbers(peopleFromMoscowToPiter, peopleFromPiterToMoscow);
@@ -84,7 +89,7 @@ public class TrainServiceImpl implements TrainService {
                 if (checked) {
                     timeMapStart.get(0).get(i).plusHours(7);
                     timeMapEnd.get(0).get(i).plusHours(7);
-                    break;
+
                 } else {
                     // тут нужно добавить логику нового поезда в работу
                     ++trainsInWorkPerDays;
@@ -98,7 +103,7 @@ public class TrainServiceImpl implements TrainService {
                 if (checked) {
                     timeMapStart.get(1).get(i).plusHours(7);
                     timeMapEnd.get(1).get(i).plusHours(7);
-                    break;
+
                 } else {
                     // тут нужно добавить логику нового поезда в работу
                     ++trainsInWorkPerDays;
@@ -117,7 +122,7 @@ public class TrainServiceImpl implements TrainService {
                 if (checked) {
                     timeMapStart.get(0).get(i).plusHours(7);
                     timeMapEnd.get(0).get(i).plusHours(7);
-                    break;
+
                 } else {
                     // тут нужно добавить логику нового поезда в работу
                     ++trainsInWorkPerDays;
@@ -131,7 +136,7 @@ public class TrainServiceImpl implements TrainService {
                 if (checked) {
                     timeMapStart.get(1).get(i).plusHours(7);
                     timeMapEnd.get(1).get(i).plusHours(7);
-                    break;
+
                 } else {
                     // тут нужно добавить логику нового поезда в работу
                     ++trainsInWorkPerDays;
@@ -145,10 +150,11 @@ public class TrainServiceImpl implements TrainService {
                 if (checked) {
                     timeMapStart.get(2).get(i).plusHours(7);
                     timeMapEnd.get(2).get(i).plusHours(7);
-                    break;
+
                 } else {
                     // тут нужно добавить логику нового поезда в работу
                     ++trainsInWorkPerDays;
+                    break;
                 }
                 break;
             }
@@ -156,11 +162,11 @@ public class TrainServiceImpl implements TrainService {
 
         log.info("reset status for trains");
 
-//        List<String> statusList = setTrainStatus(trainNums, trainsList);
-//
-//        for (int i = 0; i < trainsList.size(); i++) {
-//            trainsList.get(i).setStatus(statusList.get(i));
-//        }
+        List<String> statusList = setTrainStatus(trainNums, trainsInWorkPerDays);
+
+        for (int i = 0; i < trainsList.size(); i++) {
+            trainsList.get(i).setStatus(statusList.get(i));
+        }
 
         // LOGS
         // ----------------------------
@@ -187,33 +193,35 @@ public class TrainServiceImpl implements TrainService {
         log.info(peopleFromPiterToMoscow.toString());
         log.info(trainNums.toString());
         log.info(intervals.toString());
-//        log.info(statusList.toString());
+        log.info(statusList.toString());
 
-//        log.info(trainsList.toString());
+        log.info(trainsList.toString());
 
         // ----------------------------
 
         return trainsList;
     }
 
-//    @Override
-//    public void createNewTrains() {
-//        for (int i = 0; i < maxTrains - 1; i++) {
-//            Train train = new Train()
-//                    .setUuid(generateUuid())
-//                    .setSerialNumber(generateSerialNumber())
-//                    .setDistance(DEFAULT_DISTANCE)
-//                    .setDaysInWork(DEFAULT_WORK_DAYS)
-//                    .setCycle(DEFAULT_CYCLE)
-//                    .setSeat(DEFAULT_SEAT)
-//                    .setInterval(DEFAULT_INTERVAL_MIN)
-//                    .setStartDate(startDate)
-//                    .setFromMoscowToPiter(fromMoscowToPiter)
-//                    .setFromPiterToMoscow(fromPiterToMoscow);
-//
-//            trainsList.add(train);
-//        }
-//    }
+    @Override
+    public void createNewTrains(Integer maxTrains, LocalDateTime startDate, Integer fromMoscowToPiter, Integer fromPiterToMoscow) {
+        trainsList = new ArrayList<>();
+
+        for (int i = 0; i < maxTrains - 1; i++) {
+            Train train = new Train()
+                    .setUuid(generateUuid())
+                    .setSerialNumber(generateSerialNumber())
+                    .setDistance(DEFAULT_DISTANCE)
+                    .setDaysInWork(DEFAULT_WORK_DAYS)
+                    .setCycle(DEFAULT_CYCLE)
+                    .setSeat(DEFAULT_SEAT)
+                    .setInterval(DEFAULT_INTERVAL_MIN)
+                    .setStartDate(startDate)
+                    .setFromMoscowToPiter(fromMoscowToPiter)
+                    .setFromPiterToMoscow(fromPiterToMoscow);
+
+            trainsList.add(train);
+        }
+    }
 
     @Override
     public List<TrainModel> convertToTrainModel(List<Train> trainsList) {
@@ -278,20 +286,20 @@ public class TrainServiceImpl implements TrainService {
         return intervals;
     }
 
-//   @Override
-//   public List<String> setTrainStatus(List<Integer> trainNums, List<Train> trainsList) {
-//       List<String> statusList = new ArrayList<>();
-//
-//       for (int i = 0; i < trainNums.get(0); i++) {
-//           statusList.add(String.valueOf(Status.IN_WORK));
-//       }
-//
-//       for (int j = trainNums.get(0); j < trainsList.size(); j++) {
-//           statusList.add(String.valueOf(Status.IDLE));
-//       }
-//
-//       return statusList;
-//   }
+   @Override
+   public List<String> setTrainStatus(List<Integer> trainNums, Integer trainsInWorkPerDays) {
+       List<String> statusList = new ArrayList<>();
+
+       for (int i = 0; i < trainsInWorkPerDays; i++) {
+           statusList.add(String.valueOf(Status.IN_WORK));
+       }
+
+       for (int j = trainsInWorkPerDays; j < trainsList.size(); j++) {
+           statusList.add(String.valueOf(Status.IDLE));
+       }
+
+       return statusList;
+   }
 
     public String generateUuid()     {
         return UUID.randomUUID().toString();

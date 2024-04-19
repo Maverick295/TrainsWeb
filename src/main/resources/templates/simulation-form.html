@@ -27,13 +27,9 @@
 
     <div class="mb-3">
       <label for="startDate" class="form-label">Дата начала</label>
-      <input type="datetime-local" class="form-control" id="startDate" name="startDate"/>
+      <input type="datetime-local" class="form-control" id="startDate" th:field="*{startDate}"/>
     </div>
 
-    <div class="mb-3">
-      <label for="finishDate" class="form-label">Дата конца</label>
-      <input type="datetime-local" class="form-control" id="finishDate" name="startDate"/>
-    </div>
     <button type="submit" class="btn btn-primary">Запустить моделирование</button>
   </form>
 
