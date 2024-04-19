@@ -28,13 +28,19 @@ public class TrainController {
 
     @PostMapping("/simulation")
     public ModelAndView createTrains(@ModelAttribute TrainCreateForm createForm) {
-        return new ModelAndView("simulation-form")
-                .addObject(
-                        "allTrains", trainService.exec(
-                                createForm.getMaxTrains(),
-                                createForm.getStartDate(),
-                                createForm.getFromMoscowToPiter(),
-                                createForm.getFromPiterToMoscow()
-                        ));
+        int passengersMoscowToPiter = createForm.getFromMoscowToPiter();
+        int passengersPiterToMoscow = createForm.getFromPiterToMoscow();
+
+        int difference = Math.abs(passengersMoscowToPiter - passengersPiterToMoscow);
+        String message = "";
+
+        if (difference > 100) {
+            message = "Необходимо поднять стоимость билетов из-за большой разницы в количестве пассажиров";
+        }
+
+        ModelAndView modelAndView = new ModelAndView("simulation-form");
+        modelAndView.addObject("allTrains", trainService.exec(createForm.getMaxTrains(), createForm.getStartDate(), passengersMoscowToPiter, passengersPiterToMoscow));
+        modelAndView.addObject("message", message);
+        return modelAndView;
     }
 }
