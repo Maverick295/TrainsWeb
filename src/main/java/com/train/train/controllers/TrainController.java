@@ -30,7 +30,7 @@ public class TrainController {
     public ModelAndView createTrains(@ModelAttribute TrainCreateForm createForm) {
         return new ModelAndView("simulation-form")
                 .addObject(
-                        "allTrains", trainService.simulate(
+                        "allTrains", trainService.exec(
                                 createForm.getMaxTrains(),
                                 createForm.getStartDate(),
                                 createForm.getFromMoscowToPiter(),
