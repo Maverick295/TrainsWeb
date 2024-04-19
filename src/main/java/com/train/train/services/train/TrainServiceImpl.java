@@ -250,10 +250,8 @@ public class TrainServiceImpl implements TrainService {
    public void setTrainStatus() {
        for (int i = 0; i < trainsList.size(); ++i) {
            Train currentTrain = trainsList.get(i);
-           log.info(currentTrain.getStatus());
            if (Objects.equals(currentTrain.getStatus(), String.valueOf(Status.IDLE))) {
                currentTrain.setStatus(String.valueOf(Status.IN_WORK));
-               log.info(currentTrain.getStatus());
                break;
            }
        }
