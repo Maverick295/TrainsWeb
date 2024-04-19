@@ -1,6 +1,5 @@
 package com.train.train.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class  Train {
